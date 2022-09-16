@@ -11,7 +11,7 @@ public interface ScreenRepository extends JpaRepository<Screen, Long> {
 
         List<Screen> findByCinemaId(long cinemaId);
 
-        Screen findByCinemaIdAndScreenId(long cinemaId, long screenId);
+        Screen findByCinemaIdAndId(long cinemaId, long screenId);
     }
 
 

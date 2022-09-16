@@ -23,7 +23,7 @@ public class ScreenService {
     ScreeningRepository screeningRepository;
 
     public Screen addScreeningToScreen(long screenId, long screeningId, long cinemaId){
-        Screen screen = screenRepository.findByCinemaIdAndScreenId(cinemaId,screenId);
+        Screen screen = screenRepository.findByCinemaIdAndId(cinemaId,screenId);
         Optional<Screening> screening = screeningRepository.findById(screeningId);
         if(screen == null) return null;
         if(screening.isPresent()) {
@@ -39,7 +39,7 @@ public class ScreenService {
     }
 
     public void removeScreeningFromScreen(long screenId, long screeningId, long cinemaId){
-        Screen screen = screenRepository.findByCinemaIdAndScreenId(cinemaId,screenId);
+        Screen screen = screenRepository.findByCinemaIdAndId(cinemaId,screenId);
         Optional<Screening> screening = screeningRepository.findById(screeningId);
         if(screen == null) return;
         if(screening.isPresent()) {
@@ -58,7 +58,7 @@ public class ScreenService {
 
 
     public Screen getScreenById(long id, long cinemaId){
-        return screenRepository.findByCinemaIdAndScreenId(cinemaId, id);
+        return screenRepository.findByCinemaIdAndId(cinemaId, id);
     }
 
     public Screen addNewScreen(Screen screen){

@@ -42,9 +42,9 @@ public class ScreenController {
         }
     }
 
-    @GetMapping("/{cinemaId}/screenings")
-    public ResponseEntity<List<Screening>> getAllScreenings(@PathVariable long cinemaId){
-        List<Screening> screenings = screeningService.getAllScreenings(cinemaId);
+    @GetMapping("/{screenId}/screenings")
+    public ResponseEntity<List<Screening>> getAllScreenings(@PathVariable long screenId){
+        List<Screening> screenings = screeningService.getAllScreenings(screenId);
         return new ResponseEntity<>(screenings, HttpStatus.OK);
     }
 
