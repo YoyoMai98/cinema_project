@@ -79,7 +79,7 @@ public class ScreeningService {
                 movie.setScreenings(screenings);
                 movieRepository.save(movie);
                 screeningRepository.save(screening.get());
-                screenService.addScreeningToScreen(screenId, screeningId);
+                screenService.addScreeningToScreen(screenId, screeningId, cinemaId);
             }
             return screening.get();
         }else{
@@ -97,7 +97,7 @@ public class ScreeningService {
             if(movie != null){
                 screening.get().setMovie(null);
                 screeningRepository.save(screening.get());
-                screenService.addScreeningToScreen(screenId, screeningId);
+                screenService.addScreeningToScreen(screenId, screeningId, cinemaId);
             }
             return screening.get();
         }else{

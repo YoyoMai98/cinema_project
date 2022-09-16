@@ -68,8 +68,10 @@ public class ScreenController {
 
 
     @PostMapping(value = "/{screenId}")
-    public ResponseEntity<Screen> addScreeningToScreen(@PathVariable long screenId, @RequestParam long screeningId){
-        Screen screen = screenService.addScreeningToScreen(screenId, screeningId);
+    public ResponseEntity<Screen> addScreeningToScreen(
+            @PathVariable long screenId, @RequestParam long screeningId, @RequestParam long cinemaId
+    ){
+        Screen screen = screenService.addScreeningToScreen(screenId, screeningId, cinemaId);
         return new ResponseEntity<>(screen, HttpStatus.CREATED);
     }
 
@@ -108,7 +110,7 @@ public class ScreenController {
         if(movieId.isPresent()){
             screeningService.removeMovieFromScreening(movieId.get(),screeningId,screenId,cinemaId);
         }else{
-            screenService.removeScreeningFromScreen(screenId, screeningId);
+            screenService.removeScreeningFromScreen(screenId, screeningId, cinemaId);
         }
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
