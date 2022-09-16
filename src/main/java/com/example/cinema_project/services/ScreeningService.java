@@ -27,8 +27,8 @@ public class ScreeningService {
     @Autowired
     CinemaService cinemaService;
 
-    public List<Screening> getAllScreenings(){
-        return screeningRepository.findAll();
+    public List<Screening> getAllScreenings(long cinemaId){
+        return screeningRepository.findByCinemaId(cinemaId);
     }
 
     public Screening getScreeningById(Long screeningId, Long screenId, long cinemaId){
