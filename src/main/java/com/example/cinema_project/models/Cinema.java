@@ -14,7 +14,12 @@ public class Cinema {
         
         @Column
         private String branch;
-        @OneToMany(mappedBy = "cinema")
+        @ManyToMany
+        @JoinTable(
+            name = "cinemas_movies",
+            joinColumns = {@JoinColumn(name = "cinema_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "movie_id", nullable = false)}
+        )
         @JsonIgnoreProperties({"cinema","screenings"})
         private List<Movie> movies;
         @OneToMany(mappedBy = "cinema")

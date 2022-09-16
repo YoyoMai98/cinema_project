@@ -29,11 +29,10 @@ public class CinemaService {
     }
 
     public Cinema addNewMovieToCinema(Movie movie, long cinemaId){
-        Cinema cinema= cinemaRepository.findById(cinemaId).get();
+        Cinema cinema = cinemaRepository.findById(cinemaId).get();
         List<Movie> movies = cinema.getMovies();
         movies.add(movie);
         cinema.setMovies(movies);
-        movie.setCinema(cinema);
         movieRepository.save(movie);
         cinemaRepository.save(cinema);
         return cinema;
@@ -44,7 +43,6 @@ public class CinemaService {
         List<Screen> screens = cinema.getScreens();
         screens.add(screen);
         cinema.setScreens(screens);
-        screen.setCinema(cinema);
         screenRepository.save(screen);
         cinemaRepository.save(cinema);
         return cinema;

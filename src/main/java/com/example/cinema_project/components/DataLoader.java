@@ -58,19 +58,33 @@ public class DataLoader implements ApplicationRunner{
             Cinema cinema = new Cinema("Not Cineworld");
             cinemaRepository.save(cinema);
 
-            Movie movie = new Movie("Titanic", 194, 1997, "Historical Drama", cinema);
-            Movie movie1 = new Movie("300", 117, 2006, "Action", cinema);
-            Movie movie2 = new Movie("The Godfather", 175, 1972, "Action", cinema);
-            Movie movie3 = new Movie("The Incredibles", 105, 2004, "Childrens", cinema);
-            Movie movie4 = new Movie("I, Robot", 115, 2004, "Sci-fi", cinema);
-            Movie movie5 = new Movie("xXx", 124, 2002, "Action", cinema);
-            Movie movie6 = new Movie("The Green Mile", 189, 1999, "Drama", cinema);
-            Movie movie7 = new Movie("Avengers Endgame", 180, 2019, "Action", cinema);
-            Movie movie8 = new Movie("Crazy Stupid Love", 120, 2011, "Comedy", cinema);
-            Movie movie9 = new Movie("The Shawshank Redemption", 142, 1994, "Drama", cinema);
-            Movie movie10 = new Movie("Inception", 140, 2010, "Sci-fi", cinema);
-            Movie movie11 = new Movie("The Ugly Truth", 96, 2009, "Comedy", cinema);
-            Movie movie12 = new Movie("Hacksaw Ridge", 139, 2016, "Historical Drama", cinema);
+            Movie movie = new Movie("Titanic", 194, 1997, "Historical Drama");
+            Movie movie1 = new Movie("300", 117, 2006, "Action");
+            Movie movie2 = new Movie("The Godfather", 175, 1972, "Action");
+            Movie movie3 = new Movie("The Incredibles", 105, 2004, "Childrens");
+            Movie movie4 = new Movie("I, Robot", 115, 2004, "Sci-fi");
+            Movie movie5 = new Movie("xXx", 124, 2002, "Action");
+            Movie movie6 = new Movie("The Green Mile", 189, 1999, "Drama");
+            Movie movie7 = new Movie("Avengers Endgame", 180, 2019, "Action");
+            Movie movie8 = new Movie("Crazy Stupid Love", 120, 2011, "Comedy");
+            Movie movie9 = new Movie("The Shawshank Redemption", 142, 1994, "Drama");
+            Movie movie10 = new Movie("Inception", 140, 2010, "Sci-fi");
+            Movie movie11 = new Movie("The Ugly Truth", 96, 2009, "Comedy");
+            Movie movie12 = new Movie("Hacksaw Ridge", 139, 2016, "Historical Drama");
+
+            movie.getCinemas().add(cinema);
+            movie1.getCinemas().add(cinema);
+            movie2.getCinemas().add(cinema);
+            movie3.getCinemas().add(cinema);
+            movie4.getCinemas().add(cinema);
+            movie5.getCinemas().add(cinema);
+            movie6.getCinemas().add(cinema);
+            movie7.getCinemas().add(cinema);
+            movie8.getCinemas().add(cinema);
+            movie9.getCinemas().add(cinema);
+            movie10.getCinemas().add(cinema);
+            movie11.getCinemas().add(cinema);
+            movie12.getCinemas().add(cinema);
 
             movieRepository.save(movie);
             movieRepository.save(movie1);

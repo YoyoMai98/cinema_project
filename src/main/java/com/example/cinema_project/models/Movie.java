@@ -19,22 +19,26 @@ public class Movie {
     private int releaseDate;
     @Column
     private String genre;
-    @ManyToOne
-    @JoinColumn(name = "cinema_id")
+    @ManyToMany
+    @JoinTable(
+            name = "cinemas_movies",
+            joinColumns = {@JoinColumn(name = "movie_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "cinema_id", nullable = false)}
+    )
     @JsonIgnoreProperties({"movies","screens"})
-    private Cinema cinema;
+    private List<Cinema> cinemas;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"movie", "screens"})
     private List<Screening> screenings;
 
-    public Movie(String title, int length, int releaseDate, String genre, Cinema cinema) {
+    public Movie(String title, int length, int releaseDate, String genre) {
         this.title = title;
         this.length = length;
         this.releaseDate = releaseDate;
         this.genre = genre;
         this.screenings = new ArrayList<>();
-        this.cinema = cinema;
+        this.cinemas = new ArrayList<>();
     }
 
     public Movie() {
@@ -88,11 +92,11 @@ public class Movie {
         this.screenings = screenings;
     }
 
-    public Cinema getCinema() {
-        return cinema;
+    public List<Cinema> getCinemas() {
+        return cinemas;
     }
 
-    public void setCinema(Cinema cinema) {
-        this.cinema = cinema;
+    public void setCinemas(List<Cinema> cinemas) {
+        this.cinemas = cinemas;
     }
 }
