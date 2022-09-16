@@ -74,11 +74,11 @@ Given the broad scope to create an API;
 |`.../customers/{id}` | `GET` | Get Customer By ID |
 | `.../customers` | `POST` | Create New Customers |
 | `.../screens` | `GET` | Get All Screens 
-| `.../screens/{id}` | `GET` | Get Screen By ID |
-| `.../screens/screenings` | `GET` | Get All Screenings |
-| `.../screens/{id}/screenings` | `GET` | Get Screening By ID |
+| `.../screens/{id}?cinemaId={cinemaId}` | `GET` | Get Screen By ID |
+| `.../screens/{screenId}/screenings` | `GET` | Get All Screenings |
+| `.../screens/{id}/screenings?cinemaId={cinemaId}` | `GET` | Get Screening By ID |
 | `.../screens` | `POST` | Create New Screen |
-| `.../screens/{screenId}?screeningId={screeningId}` | `POST` | Create/Add New Screening To Screen |
+| `.../screens/{screenId}?screeningId={screeningId}?cinemaId={cinemaId}` | `POST` | Create/Add New Screening To Screen |
 | `.../screens/{screenId}/screenings/{screeningId}` | `POST` | Add New Customer/Movie To Screening |
 | `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}` | `DELETE` | Delete Screening/Movie By ID |
 
