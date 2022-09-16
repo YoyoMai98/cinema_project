@@ -12,6 +12,9 @@ public class Screening {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
+    private int showTime;
     @ManyToOne
     @JoinColumn(name = "movie_id")
     @JsonIgnoreProperties({"screenings","cinema"})
@@ -31,9 +34,10 @@ public class Screening {
     @JsonIgnoreProperties({"screenings"})
     private List<Customer> customers;
 
-    public Screening(Movie movie, Screen screen) {
+    public Screening(Movie movie, Screen screen, int showTime) {
         this.movie = movie;
         this.screen = screen;
+        this.showTime = showTime;
         this.customers = new ArrayList<>();
     }
 
@@ -69,5 +73,13 @@ public class Screening {
 
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
+    }
+
+    public int getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(int showTime) {
+        this.showTime = showTime;
     }
 }

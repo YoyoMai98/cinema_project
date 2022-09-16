@@ -56,8 +56,8 @@ public class ScreenService {
     }
 
 
-    public Optional<Screen> getScreenById(long id){
-        return screenRepository.findById(id);
+    public Screen getScreenById(long id, long cinemaId){
+        return screenRepository.findByCinemaIdAndScreenId(cinemaId, id);
     }
 
     public Screen addNewScreen(Screen screen){

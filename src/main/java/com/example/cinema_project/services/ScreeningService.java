@@ -1,9 +1,6 @@
 package com.example.cinema_project.services;
 
-import com.example.cinema_project.models.Customer;
-import com.example.cinema_project.models.Movie;
-import com.example.cinema_project.models.Screen;
-import com.example.cinema_project.models.Screening;
+import com.example.cinema_project.models.*;
 import com.example.cinema_project.repositories.MovieRepository;
 import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +31,12 @@ public class ScreeningService {
         return screeningRepository.findAll();
     }
 
-    public Screening getScreeningById(Long screeningId, Long screenId){
-        Optional<Screen> screen = screenService.getScreenById(screenId);
-        if(!screen.isPresent()) return null;
-        List<Screening> screenings = screen.get().getScreenings();
+    public Screening getScreeningById(Long screeningId, Long screenId, long cinemaId){
+        Optional<Cinema> cinema = cinemaService.getCinemaById(cinemaId);
+        if(!cinema.isPresent()) return null;
+        Screen screen = screenService.getScreenById(screenId, cinemaId);
+        if(screen == null) return null;
+        List<Screening> screenings = screen.getScreenings();
         for(Screening screening : screenings){
             if(screening.getId() == screeningId){
                 return screening;
@@ -67,8 +66,8 @@ public class ScreeningService {
     public Screening addMovieToScreening(long movieId, long screeningId, long screenId, long cinemaId){
         Optional<Screening> screening = screeningRepository.findById(screeningId);
         Movie movie = cinemaService.getMovieById(movieId, cinemaId);
-        Optional<Screen> screen = screenService.getScreenById(screenId);
-        if (!screen.isPresent()){
+        Screen screen = screenService.getScreenById(screenId, cinemaId);
+        if (screen == null){
             return null;
         }
         if(screening.isPresent()){
@@ -85,8 +84,8 @@ public class ScreeningService {
             return screening.get();
         }else{
             return null;
-                }
-            }
+        }
+    }
 
 
 
