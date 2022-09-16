@@ -108,18 +108,18 @@ public class DataLoader implements ApplicationRunner{
             screenRepository.save(screen2);
             screenRepository.save(screen3);
 
-            Screening screening1 = new Screening(movie1, screen1);
-            Screening screening2 = new Screening(movie2, screen1);
-            Screening screening3 = new Screening(movie3, screen1);
-            Screening screening4 = new Screening(movie4, screen2);
-            Screening screening5 = new Screening(movie5, screen2);
-            Screening screening6 = new Screening(movie6, screen2);
-            Screening screening7 = new Screening(movie7, screen3);
-            Screening screening8 = new Screening(movie8, screen3);
-            Screening screening9 = new Screening(movie9, screen3);
-            Screening screening10 = new Screening(movie10, screen3);
-            Screening screening11= new Screening(movie11, screen2);
-            Screening screening12= new Screening(movie12, screen1);
+            Screening screening1 = new Screening(movie1, screen1, 9.30);
+            Screening screening2 = new Screening(movie2, screen1, 13.00);
+            Screening screening3 = new Screening(movie3, screen1, 16.00);
+            Screening screening4 = new Screening(movie4, screen2,9.30);
+            Screening screening5 = new Screening(movie5, screen2, 13.00);
+            Screening screening6 = new Screening(movie6, screen2, 16.00);
+            Screening screening7 = new Screening(movie7, screen3, 10.00);
+            Screening screening8 = new Screening(movie8, screen3, 14.30);
+            Screening screening9 = new Screening(movie9, screen3, 17.40);
+            Screening screening10 = new Screening(movie10, screen3, 20.30);
+            Screening screening11= new Screening(movie11, screen2, 21.30);
+            Screening screening12= new Screening(movie12, screen1, 20.45);
 
             screeningRepository.save(screening1);
             screeningRepository.save(screening2);

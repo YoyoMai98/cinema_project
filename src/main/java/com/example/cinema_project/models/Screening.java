@@ -14,7 +14,7 @@ public class Screening {
     private Long id;
 
     @Column
-    private int showTime;
+    private double showTime;
     @ManyToOne
     @JoinColumn(name = "movie_id")
     @JsonIgnoreProperties({"screenings","cinema"})
@@ -34,7 +34,7 @@ public class Screening {
     @JsonIgnoreProperties({"screenings"})
     private List<Customer> customers;
 
-    public Screening(Movie movie, Screen screen, int showTime) {
+    public Screening(Movie movie, Screen screen, double showTime) {
         this.movie = movie;
         this.screen = screen;
         this.showTime = showTime;
@@ -75,11 +75,11 @@ public class Screening {
         this.customers = customers;
     }
 
-    public int getShowTime() {
+    public double getShowTime() {
         return showTime;
     }
 
-    public void setShowTime(int showTime) {
+    public void setShowTime(double showTime) {
         this.showTime = showTime;
     }
 }
