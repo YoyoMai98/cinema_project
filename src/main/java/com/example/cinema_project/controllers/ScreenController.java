@@ -27,8 +27,8 @@ public class ScreenController {
     CustomerRepository customerRepository;
 
     @GetMapping
-    public ResponseEntity<List<Screen>> getAllScreens(){
-        List<Screen> screens = screenService.getAllScreens();
+    public ResponseEntity<List<Screen>> getAllScreens(@RequestParam long cinemaId){
+        List<Screen> screens = screenService.getAllScreens(cinemaId);
         return new ResponseEntity<>(screens, HttpStatus.OK);
     }
 

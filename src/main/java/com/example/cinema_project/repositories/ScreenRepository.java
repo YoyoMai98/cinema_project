@@ -8,6 +8,9 @@ import java.util.List;
 
 @Repository
 public interface ScreenRepository extends JpaRepository<Screen, Long> {
+
+        List<Screen> findByCinemaId(long cinemaId);
+
         Screen findByCinemaIdAndScreenId(long cinemaId, long screenId);
     }
 
