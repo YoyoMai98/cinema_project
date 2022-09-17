@@ -31,10 +31,11 @@ We are the Debug Demons team behind Cinema - 4 members of Cohort 6 from the Brig
 
 
 ## Project Overview
-Given the broad scope to create an API;
-- We have designed a cinema API which uses POJOs and allows you to select information from our different classes and get this brought up in Postman and Postico.
+Given the broad scope to our cinema-management-API:
+- We have designed a cinema API which uses POJOs and allows you to select information from our different models and get this brought up in Postman and Postico.
+- A handy API allows cinemas to add new movies, search for movies, add new show time and screens for movies and manage customers. It also allows customers to book movies' tickets.
 - We have used Java as our primary Backend language, but have also used SQL for the data.
-- Our main challenges included removing dependency loops between screening, screen and cinema classes, fixing foreign key constraints, and version control errors. 
+- Our main challenges included removing dependency loops between screening, screen, movie and cinema models, fixing foreign key constraints, and version control errors. 
 - To mitigate our issues we regularly discussed them with one another, and would ask for help when we needed it. Our teamwork was key for getting us to complete this project together.
 
 ## Project Structure
@@ -52,7 +53,7 @@ Given the broad scope to create an API;
 
 1. This Spring Boot API runs on Java 17. Ensure you have an IDE, API platform and PostgreSQL client before running this API. We used IntelliJ, Postman & Postico, respectively. 
 2. Clone the repository `git clone git@github.com:katfagg/cinema_project.git`. Open project in IDE.
-3. Create a database called “cinema” (`createdb cinema`); this will allow you to use your PostgreSQL client to view your tables.
+3. Create a database called “cinema” (`createdb cinema_app`); this will allow you to use your PostgreSQL client to view your tables.
 4. Run the application and open your API platform. Interact with the API and make HTTP queries via `localhost:8080/{query}` in the CLI.
 
 
@@ -66,6 +67,8 @@ Given the broad scope to create an API;
 |`.../cinemas/{id}`| `GET` | Get Cinema By ID |
 |`.../cinemas/movies` |`GET` | Get All Movies  |
 |`.../cinemas/movies/{id}`|`GET`| Get Movie By ID|
+|`.../cinemas/{id}/movies?genre={genre}`|`GET`| Get Movie By Genre |
+|`.../cinemas/{id}/movies/title={title}`|`GET`| Get Movie By Title|
 | `.../cinemas/{id}/movies/{movieId}`  | `DELETE`  | Cancel Movie  |
 | `.../cinemas/{id}/movies`  | `POST`  | Add Movie To Cinema  |
 | `.../cinemas/{id}/screens`  | `POST`  | Add Screen To Cinema |
@@ -79,8 +82,10 @@ Given the broad scope to create an API;
 | `.../screens/{id}/screenings?cinemaId={cinemaId}` | `GET` | Get Screening By ID |
 | `.../screens` | `POST` | Create New Screen |
 | `.../screens/{screenId}?screeningId={screeningId}?cinemaId={cinemaId}` | `POST` | Create/Add New Screening To Screen |
-| `.../screens/{screenId}/screenings/{screeningId}` | `POST` | Add New Customer/Movie To Screening |
-| `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}` | `DELETE` | Delete Screening/Movie By ID |
+| `.../screens/{screenId}/screenings/{screeningId}?cinemaId={cinemaId}&customerId={customerId}` | `POST` | Add New Customer To Screening |
+| `.../screens/{screenId}/screenings/{screeningId}?cinemaId={cinemaId}&movieId={movieId}` | `POST` | Add New Movie To Screening |
+| `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}` | `DELETE` | Delete Screening By ID |
+| `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}?movieId={movieId}` | `DELETE` | Delete Movie By ID |
 
 
 ## Further Extensions
