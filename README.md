@@ -55,9 +55,9 @@ How we worked together:
 
 - MVP
 
-![UML](https://github.com/katfagg/cinema_project/blob/main/Class%20Diagram%20Final.png)
+![UML](https://github.com/YoyoMai98/cinema_project/blob/main/Class_Diagram_MVP.png)
 
-![UML](https://github.com/katfagg/cinema_project/blob/main/UML%20Final.png)
+![UML](https://github.com/YoyoMai98/cinema_project/blob/main/UML_MVP.png)
 
 - Extension
 
@@ -69,7 +69,7 @@ How we worked together:
 
 - MVP
 
-![ERD](https://github.com/katfagg/cinema_project/blob/main/ERD%20Final.png)
+![ERD](https://github.com/YoyoMai98/cinema_project/blob/main/ERD_MVP.png)
 
 - Extension
 
