@@ -14,7 +14,15 @@ public class Screening {
     private Long id;
 
     @Column
+    private double price;
+
+    @Column(name = "show_time")
     private double showTime;
+
+    @Column
+    @ElementCollection
+    private List<Integer> seats;
+
     @ManyToOne
     @JoinColumn(name = "movie_id")
     @JsonIgnoreProperties({"screenings","cinema"})
@@ -25,25 +33,27 @@ public class Screening {
     @JsonIgnoreProperties({"screenings","cinema"})
     private Screen screen;
 
-    @ManyToMany
-    @JoinTable(
-            name = "screenings_customers",
-            joinColumns = {@JoinColumn(name = "screening_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "customer_id", nullable = false)}
-    )
-    @JsonIgnoreProperties({"screenings"})
-    private List<Customer> customers;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "screenings_customers",
+//            joinColumns = {@JoinColumn(name = "screening_id", nullable = false)},
+//            inverseJoinColumns = {@JoinColumn(name = "customer_id", nullable = false)}
+//    )
+//    @JsonIgnoreProperties({"screenings"})
+//    private List<Customer> customers;
 
     @OneToMany(mappedBy = "screening")
     @JsonIgnoreProperties({"screening"})
     private List<Booking> bookings;
 
-    public Screening(Movie movie, Screen screen, double showTime) {
+    public Screening(Movie movie, Screen screen, double showTime, double price) {
         this.movie = movie;
         this.screen = screen;
         this.showTime = showTime;
-        this.customers = new ArrayList<>();
+        this.price = price;
+//        this.customers = new ArrayList<>();
         this.bookings = new ArrayList<>();
+        this.seats = new ArrayList<>();
     }
 
     public Screening(){}
@@ -72,13 +82,13 @@ public class Screening {
         this.screen = screen;
     }
 
-    public List<Customer> getCustomers() {
-        return customers;
-    }
+//    public List<Customer> getCustomers() {
+//        return customers;
+//    }
 
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
+//    public void setCustomers(List<Customer> customers) {
+//        this.customers = customers;
+//    }
 
     public double getShowTime() {
         return showTime;
@@ -94,5 +104,21 @@ public class Screening {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public List<Integer> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Integer> seats) {
+        this.seats = seats;
     }
 }

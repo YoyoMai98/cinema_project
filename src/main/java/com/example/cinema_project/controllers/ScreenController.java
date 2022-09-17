@@ -78,13 +78,14 @@ public class ScreenController {
             @PathVariable long screenId,
             @RequestParam Long cinemaId,
             @RequestParam Optional<Long> customerId,
+            @RequestParam Optional<Integer> seatNumber,
             @RequestParam Optional<Long> movieId
     ) {
         Screening screening = screeningService.getScreeningById(screeningId, screenId, cinemaId);
         if(screening != null){
             Screening updatedScreening;
-            if(customerId.isPresent()){
-                updatedScreening = screeningService.addCustomerToScreening(customerId.get(), screeningId);
+            if(customerId.isPresent() && seatNumber.isPresent()){
+                updatedScreening = screeningService.addCustomerToScreening(customerId.get(), screeningId, seatNumber.get());
                 return new ResponseEntity<>(updatedScreening, HttpStatus.CREATED);
             }else if(movieId.isPresent()){
                 updatedScreening = screeningService.addMovieToScreening(movieId.get(),screeningId, screenId,cinemaId);

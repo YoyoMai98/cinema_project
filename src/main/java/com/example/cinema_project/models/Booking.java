@@ -27,9 +27,9 @@ public class Booking {
     @JsonIgnoreProperties({"bookings"})
     private Screening screening;
 
-    public Booking(int seatNumber, double price, Customer customer, Screening screening) {
+    public Booking(int seatNumber, Customer customer, Screening screening) {
         this.seatNumber = seatNumber;
-        this.price = price;
+        this.price = screening.getPrice();
         this.customer = customer;
         this.screening = screening;
     }

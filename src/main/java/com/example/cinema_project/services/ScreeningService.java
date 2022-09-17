@@ -6,6 +6,7 @@ import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,9 @@ public class ScreeningService {
 
     @Autowired
     CinemaService cinemaService;
+
+    @Autowired
+    BookingService bookingService;
 
     public List<Screening> getAllScreenings(long screenId){
         return screeningRepository.findByScreenId(screenId);
@@ -79,14 +83,17 @@ public class ScreeningService {
         return true;
     }
 
-    public Screening addCustomerToScreening(long customerId, Long screeningId){
+    public Screening addCustomerToScreening(long customerId, Long screeningId, int seatNumber){
         Screening screening = screeningRepository.findById(screeningId).get();
         Optional<Customer> customer = customerService.getCustomerById(customerId);
         if(customer.isPresent()){
-            List<Customer> customers = screening.getCustomers();
-            customers.add(customer.get());
-            screening.setCustomers(customers);
-            screeningRepository.save(screening);
+//            List<Customer> customers = screening.getCustomers();
+//            customers.add(customer.get());
+//            screening.setCustomers(customers);
+//            screeningRepository.save(screening);
+            if(!isSeatOccupied(seatNumber, screening.getSeats())) return null;
+            bookingService.addNewBooking(customer.get(),screening,seatNumber);
+            addNewSeat(seatNumber,screening);
         }
         return screening;
     }
@@ -132,5 +139,24 @@ public class ScreeningService {
         }else{
             return null;
         }
+    }
+
+    public List<Integer> getSeatList(Screening screening){
+        return screening.getSeats();
+    }
+
+    public boolean isSeatOccupied(int seatNumber, List<Integer> seats){
+        for(int seat : seats){
+            if(seatNumber == seat) return false;
+        }
+        return true;
+    }
+
+    public List<Integer> addNewSeat(int seatNumber, Screening screening){
+        List<Integer> seats = screening.getSeats();
+        seats.add(seatNumber);
+        screening.setSeats(seats);
+        screeningRepository.save(screening);
+        return seats;
     }
 }
