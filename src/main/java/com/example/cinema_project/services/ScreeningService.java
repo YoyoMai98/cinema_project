@@ -7,6 +7,7 @@ import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -72,18 +73,18 @@ public class ScreeningService {
                 return true;
             }
         }
-        double lengthToHour = Math.floor((double)movie.getLength()/60 * 100)/100;
-        double endTime = lengthToHour + screening.getShowTime();
-        double decimalPart = Math.floor((endTime * 100) % 100);
-        endTime = Math.floor((endTime * 100) / 100);
-        if(decimalPart >= 60){
-            double addToEndTime = Math.floor(decimalPart / 60);
-            decimalPart %= 60;
-            endTime = endTime + addToEndTime + decimalPart/100;
-        }
-        if(endTime >= nextScreening.getShowTime()){
-            return false;
-        }
+
+        double nextHour = nextScreening.getShowTime().getHour();
+        double nextMinute = nextScreening.getShowTime().getMinute();
+
+        LocalTime endTime = calculateEndTime(movie, screening);
+
+        int endHour = endTime.getHour();
+        int endMinute = endTime.getMinute();
+
+        if(endHour <= 3) endHour += 24;
+        if(endHour >= nextHour || (endHour == nextHour && endMinute >= nextMinute)) return false;
+
         return true;
     }
 
@@ -113,7 +114,9 @@ public class ScreeningService {
         }
         if(screening.isPresent()){
             if(movie != null && canShow(screening.get(), movie)){
+                LocalTime endTime = calculateEndTime(movie,screening.get());
                 screening.get().setMovie(movie);
+                screening.get().setEndTime(endTime);
                 movie.getScreenings().add(screening.get());
                 List<Screening> screenings = movie.getScreenings();
                 screenings.add(screening.get());
@@ -191,5 +194,18 @@ public class ScreeningService {
         cinema.get().setRevenue(revenue);
         cinemaRepository.save(cinema.get());
         return revenue;
+    }
+
+    public LocalTime calculateEndTime(Movie movie, Screening screening){
+        double lengthToHour = Math.floor((double)movie.getLength()/60);
+        double lengthToMinute = Math.floor(movie.getLength()%60);
+        double endHour = lengthToHour + screening.getShowTime().getHour();
+        double endMinute = lengthToMinute + screening.getShowTime().getMinute();
+        if(endHour >= 24) endHour %= 24;
+        if(endMinute >= 60){
+            endHour += (endMinute / 60);
+            endMinute %= 60;
+        }
+        return LocalTime.of((int)endHour, (int)endMinute);
     }
 }

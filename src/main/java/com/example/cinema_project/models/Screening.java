@@ -3,6 +3,7 @@ package com.example.cinema_project.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,10 @@ public class Screening {
     private double price;
 
     @Column(name = "show_time")
-    private double showTime;
+    private LocalTime showTime;
+
+    @Column(name = "end_time")
+    private LocalTime endTime;
 
     @Column
     @ElementCollection
@@ -37,13 +41,29 @@ public class Screening {
     @JsonIgnoreProperties({"screening"})
     private List<Booking> bookings;
 
-    public Screening(Movie movie, Screen screen, double showTime, double price) {
+    public Screening(Movie movie, Screen screen, LocalTime showTime, double price) {
         this.movie = movie;
         this.screen = screen;
         this.showTime = showTime;
         this.price = price;
         this.bookings = new ArrayList<>();
         this.seats = new ArrayList<>();
+
+        int hour = showTime.getHour();
+        int minute = showTime.getMinute();
+        double lengthToHour = Math.floor((double)movie.getLength()/60);
+        double lengthToMinute = Math.floor(movie.getLength()%60);
+        double endHour = hour + lengthToHour;
+        double endMinute = minute + lengthToMinute;
+        if(endMinute >= 60){
+            double addToEndHour = Math.floor(endMinute / 60);
+            endMinute %= 60;
+            endHour += addToEndHour;
+        }
+        if(endHour >= 24){
+            endHour %= 24;
+        }
+        this.endTime = LocalTime.of((int)endHour,(int)endMinute);
     }
 
     public Screening(){}
@@ -72,11 +92,11 @@ public class Screening {
         this.screen = screen;
     }
 
-    public double getShowTime() {
+    public LocalTime getShowTime() {
         return showTime;
     }
 
-    public void setShowTime(double showTime) {
+    public void setShowTime(LocalTime showTime) {
         this.showTime = showTime;
     }
 
@@ -103,4 +123,14 @@ public class Screening {
     public void setSeats(List<Integer> seats) {
         this.seats = seats;
     }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+//    public int calculateEndTime(){}
 }

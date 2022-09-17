@@ -8,6 +8,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
+
 @Component
 public class DataLoader implements ApplicationRunner{
 
@@ -108,18 +110,23 @@ public class DataLoader implements ApplicationRunner{
             screenRepository.save(screen2);
             screenRepository.save(screen3);
 
-            Screening screening1 = new Screening(movie1, screen1, 8.20,15);
-            Screening screening2 = new Screening(movie2, screen1, 9.30,12);
-            Screening screening3 = new Screening(movie3, screen1, 16.00,16);
-            Screening screening4 = new Screening(movie4, screen2,9.30,10);
-            Screening screening5 = new Screening(movie5, screen2, 13.00,12);
-            Screening screening6 = new Screening(movie6, screen2, 16.00,13);
-            Screening screening7 = new Screening(movie7, screen3, 10.00,10);
-            Screening screening8 = new Screening(movie8, screen3, 14.30,14);
-            Screening screening9 = new Screening(movie9, screen3, 17.40,15);
-            Screening screening10 = new Screening(movie10, screen3, 20.30,15);
-            Screening screening11= new Screening(movie11, screen2, 21.30,14);
-            Screening screening12= new Screening(movie12, screen1, 20.45,12);
+            LocalTime time1 = LocalTime.of(8,20);
+            LocalTime time2 = LocalTime.of(10,20);
+            LocalTime time3 = LocalTime.of(16,00);
+            LocalTime time4 = LocalTime.of(21,45);
+
+            Screening screening1 = new Screening(movie1, screen1, time1,15);
+            Screening screening2 = new Screening(movie2, screen1, time2,12);
+            Screening screening3 = new Screening(movie3, screen1, time3,16);
+            Screening screening4 = new Screening(movie4, screen2,time1,10);
+            Screening screening5 = new Screening(movie5, screen2, time2,12);
+            Screening screening6 = new Screening(movie6, screen2, time3,13);
+            Screening screening7 = new Screening(movie7, screen3, time1,10);
+            Screening screening8 = new Screening(movie8, screen3, time2,14);
+            Screening screening9 = new Screening(movie9, screen3, time3,15);
+            Screening screening10 = new Screening(movie10, screen3, time4,15);
+            Screening screening11= new Screening(movie11, screen2, time4,14);
+            Screening screening12= new Screening(movie12, screen1, time4,12);
 
             screeningRepository.save(screening1);
             screeningRepository.save(screening2);

@@ -7,6 +7,13 @@ import java.util.Comparator;
 public class ShowTimeComparator implements Comparator<Screening> {
     @Override
     public int compare(Screening a, Screening b){
-        return Double.compare(a.getShowTime(), b.getShowTime());
+        double aHour = a.getShowTime().getHour();
+        double aMinute = a.getShowTime().getMinute();
+        double bMinute = b.getShowTime().getMinute();
+        double bHour = b.getShowTime().getHour();
+
+        double aShowTime = aHour + aMinute/100;
+        double bShowTime = bHour + bMinute/100;
+        return Double.compare(aShowTime, bShowTime);
     }
 }
