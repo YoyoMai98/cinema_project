@@ -24,7 +24,7 @@ public class Cinema {
             joinColumns = {@JoinColumn(name = "cinema_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "movie_id", nullable = false)}
         )
-        @JsonIgnoreProperties({"cinema","screenings"})
+        @JsonIgnoreProperties({"cinemas","screenings"})
         private List<Movie> movies;
         @OneToMany(mappedBy = "cinema")
         @JsonIgnoreProperties({"cinema","screenings"})

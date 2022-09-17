@@ -29,7 +29,7 @@ public class Screening {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    @JsonIgnoreProperties({"screenings","cinema"})
+    @JsonIgnoreProperties({"screenings","cinemas"})
     private Movie movie;
     
     @ManyToOne

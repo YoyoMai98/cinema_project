@@ -92,6 +92,12 @@ public class CinemaController {
         return new ResponseEntity<>(newMovie, HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/{id}/movies/{movieId}")
+    public ResponseEntity<Cinema> addCurrentMovieToCinema(@PathVariable long id, @PathVariable long movieId){
+        Cinema updateCinema = cinemaService.addCurrentMovieToCinema(movieId, id);
+        return new ResponseEntity<>(updateCinema, HttpStatus.CREATED);
+    }
+
     @PostMapping(value = "/{id}/screens")
     public ResponseEntity<Cinema> addScreenToCinema(@RequestBody Screen screen, @PathVariable long id){
         Cinema newScreen = cinemaService.addScreenToCinema(screen, id);

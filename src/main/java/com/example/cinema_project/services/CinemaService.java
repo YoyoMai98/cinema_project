@@ -38,11 +38,23 @@ public class CinemaService {
         return cinema;
     }
 
+    public Cinema addCurrentMovieToCinema(long movieId, long cinemaId){
+        Cinema cinema = cinemaRepository.findById(cinemaId).get();
+        Movie movie = movieRepository.findById(movieId).get();
+        List<Movie> movies = cinema.getMovies();
+        movies.add(movie);
+        cinema.setMovies(movies);
+        movieRepository.save(movie);
+        cinemaRepository.save(cinema);
+        return cinema;
+    }
+
     public Cinema addScreenToCinema(Screen screen, long cinemaId){
         Cinema cinema = cinemaRepository.findById(cinemaId). get();
         List<Screen> screens = cinema.getScreens();
         screens.add(screen);
         cinema.setScreens(screens);
+        screen.setCinema(cinema);
         screenRepository.save(screen);
         cinemaRepository.save(cinema);
         return cinema;
