@@ -100,8 +100,8 @@ How we worked together:
 | `.../screens/{id}/screenings?cinemaId={cinemaId}` | `GET` | Get Screening By ID |
 | `.../screens` | `POST` | Create New Screen |
 | `.../screens/{screenId}?screeningId={screeningId}?cinemaId={cinemaId}` | `POST` | Create/Add New Screening To Screen |
-| `.../screens/{screenId}/screenings/{screeningId}?cinemaId={cinemaId}&customerId={customerId}` | `POST` | Add New Customer To Screening |
-| `.../screens/{screenId}/screenings/{screeningId}?cinemaId={cinemaId}&movieId={movieId}` | `POST` | Add New Movie To Screening |
+| `.../screens/{screenId}/screenings/{screeningId}/customers/{customerId}?cinemaId={cinemaId}&seat={seat}` | `POST` | Add New Customer To Screening |
+| `.../screens/{screenId}/screenings/{screeningId}/movies/{movieId}?cinemaId={cinemaId}` | `POST` | Add New Movie To Screening |
 | `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}` | `DELETE` | Delete Screening By ID |
 | `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}?movieId={movieId}` | `DELETE` | Delete Movie By ID |
 

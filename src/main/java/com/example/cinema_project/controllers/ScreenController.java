@@ -72,26 +72,33 @@ public class ScreenController {
         return new ResponseEntity<>(screen, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/{screenId}/screenings/{screeningId}")
-    public ResponseEntity<Screening> addMultiParamToScreening(
+    @PostMapping(value = "/{screenId}/screenings/{screeningId}/customers/{customerId}")
+    public ResponseEntity<Screening> addCustomerToScreening(
             @PathVariable long screeningId,
             @PathVariable long screenId,
-            @RequestParam Long cinemaId,
-            @RequestParam Optional<Long> customerId,
-            @RequestParam Optional<Integer> seatNumber,
-            @RequestParam Optional<Long> movieId
+            @PathVariable long customerId,
+            @RequestParam long cinemaId,
+            @RequestParam Integer seat
     ) {
         Screening screening = screeningService.getScreeningById(screeningId, screenId, cinemaId);
         if(screening != null){
-            Screening updatedScreening;
-            if(customerId.isPresent() && seatNumber.isPresent()){
-                updatedScreening = screeningService.addCustomerToScreening(customerId.get(), screeningId, seatNumber.get());
-                return new ResponseEntity<>(updatedScreening, HttpStatus.CREATED);
-            }else if(movieId.isPresent()){
-                updatedScreening = screeningService.addMovieToScreening(movieId.get(),screeningId, screenId,cinemaId);
-                if (updatedScreening == null){
-                    return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-                }
+            Screening updatedScreening = screeningService.addCustomerToScreening(customerId, screeningId, seat);
+            return new ResponseEntity<>(updatedScreening, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping(value = "/{screenId}/screenings/{screeningId}/movies/{movieId}")
+    public ResponseEntity<Screening> addMovieToScreening(
+            @PathVariable long screeningId,
+            @PathVariable long screenId,
+            @PathVariable long movieId,
+            @RequestParam long cinemaId
+    ) {
+        Screening screening = screeningService.getScreeningById(screeningId, screenId, cinemaId);
+        if(screening != null){
+            Screening updatedScreening = screeningService.addMovieToScreening(movieId,screeningId, screenId,cinemaId);
+            if (updatedScreening != null){
                 return new ResponseEntity<>(updatedScreening, HttpStatus.CREATED);
             }
         }
