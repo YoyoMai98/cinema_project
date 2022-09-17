@@ -54,7 +54,7 @@ How we worked together:
 
 ![UML](https://github.com/YoyoMai98/cinema_project/blob/main/extension_uml_model.png)
 
-![UML](https://github.com/YoyoMai98/cinema_project/blob/main/extensions_uml_controller.png)
+![UML](https://github.com/YoyoMai98/cinema_project/blob/main/extension_uml_controller.png)
 
 ### Entity Relationship Diagram (ERD):
 
