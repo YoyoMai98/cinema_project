@@ -3,12 +3,15 @@ package com.example.cinema_project.services;
 import com.example.cinema_project.models.Cinema;
 import com.example.cinema_project.models.Movie;
 import com.example.cinema_project.models.Screen;
+import com.example.cinema_project.models.Screening;
 import com.example.cinema_project.repositories.CinemaRepository;
 import com.example.cinema_project.repositories.MovieRepository;
 import com.example.cinema_project.repositories.ScreenRepository;
+import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,9 @@ public class CinemaService {
 
     @Autowired
     ScreenRepository screenRepository;
+
+    @Autowired
+    ScreeningRepository screeningRepository;
 
     public List<Movie> getAllMovies(long cinemaId){
         Cinema cinema= cinemaRepository.findById(cinemaId).get();
@@ -61,7 +67,25 @@ public class CinemaService {
     }
 
     public void cancelMovie(long id, long cinemaId){
-        movieRepository.deleteById(id);
+        Optional<Cinema> cinema = getCinemaById(cinemaId);
+        Movie movie = getMovieById(id, cinemaId);
+        if(!cinema.isPresent() || movie == null) return;
+        List<Movie> movies = cinema.get().getMovies();
+        List<Screening> screenings = new ArrayList<>();
+        List<Screen> screens = cinema.get().getScreens();
+        for(Screen screen : screens){
+            screenings.addAll(screeningRepository.findByScreenIdAndMovieId(screen.getId(),id));
+        }
+        for(Screening screening : screenings){
+            screeningRepository.delete(screening);
+        }
+        movies.remove(movie);
+        List<Cinema> cinemas = movie.getCinemas();
+        cinemas.remove(cinema);
+        cinema.get().setMovies(movies);
+        movie.setCinemas(cinemas);
+        cinemaRepository.save(cinema.get());
+        movieRepository.save(movie);
     }
     
     public Movie getMovieById(long id, long cinemaId){
