@@ -33,21 +33,38 @@ We are the Debug Demons team behind Cinema - 4 members of Cohort 6 from the Brig
 ## Project Overview
 Given the broad scope to our cinema-management-API:
 - We have designed a cinema API which uses POJOs and allows you to select information from our different models and get this brought up in Postman and Postico.
-- A handy API allows cinemas to add new movies, search for movies, add new show time and screens for movies and manage customers. It also allows customers to book movies' tickets.
+- A handy API allows cinemas to manage revenue, add new movies, search for movies, add new show time and screens for movies and manage customers. It also allows customers to book movies' tickets.
 - We have used Java as our primary Backend language, but have also used SQL for the data.
+
+How we worked together:
+- As part of the Bright Network Technology Academy, we were assigned a group project to research, plan and develop an API within a week.
 - Our main challenges included removing dependency loops between screening, screen, movie and cinema models, fixing foreign key constraints, and version control errors. 
 - To mitigate our issues we regularly discussed them with one another, and would ask for help when we needed it. Our teamwork was key for getting us to complete this project together.
 
 ## Project Structure
 ### Unified Modelling Language Diagrams (UML):
 
+- MVP
+
 ![UML](https://github.com/katfagg/cinema_project/blob/main/Class%20Diagram%20Final.png)
 
 ![UML](https://github.com/katfagg/cinema_project/blob/main/UML%20Final.png)
 
+- Extension
+
+![UML](https://github.com/YoyoMai98/cinema_project/blob/main/extension_uml_model.png)
+
+![UML](https://github.com/YoyoMai98/cinema_project/blob/main/extensions_uml_controller.png)
+
 ### Entity Relationship Diagram (ERD):
 
+- MVP
+
 ![ERD](https://github.com/katfagg/cinema_project/blob/main/ERD%20Final.png)
+
+- Extension
+
+![ERD](https://github.com/YoyoMai98/cinema_project/blob/main/extension_erd.png)
 
 ## Install and Run
 
@@ -69,6 +86,7 @@ Given the broad scope to our cinema-management-API:
 |`.../cinemas/movies/{id}`|`GET`| Get Movie By ID|
 |`.../cinemas/{id}/movies?genre={genre}`|`GET`| Get Movie By Genre |
 |`.../cinemas/{id}/movies/title={title}`|`GET`| Get Movie By Title|
+|`.../cinemas/{id}/revenue`|`GET`| Get Total Revenue|
 | `.../cinemas/{id}/movies/{movieId}`  | `DELETE`  | Cancel Movie  |
 | `.../cinemas/{id}/movies`  | `POST`  | Add Movie To Cinema  |
 | `.../cinemas/{id}/screens`  | `POST`  | Add Screen To Cinema |
@@ -89,11 +107,16 @@ Given the broad scope to our cinema-management-API:
 
 
 ## Further Extensions
-Here are a few ideas on how we would like to expand on this API:
+
+What Yongran has expanded on this API:
+
 - Change `Cinema` and `Movie` one-to-many relationship to many-to-many
 - Add `showTime` property in `Screening` model
 - Create `Booking` model to handle price for a ticket
+
+Here are a few ideas on how we would like to expand on this API:
 - Create `Genre` table to list movies’ genres in one cinema
+- Authentication
 
 
 ## Acknowledgements
