@@ -27,11 +27,11 @@ public class ScreenService {
         if(screening.isPresent()) {
             List<Screening> screenings = screen.getScreenings();
             screenings.add(screening.get());
-            screeningsInOrderByShowTime(screen);
             screen.setScreenings(screenings);
+            screeningsInOrderByShowTime(screen);
             screening.get().setScreen(screen);
             screeningRepository.save(screening.get());
-            screenRepository.save(screen);
+//            screenRepository.save(screen);
 
         }
         return screen;
@@ -44,11 +44,11 @@ public class ScreenService {
         if(screening.isPresent()) {
             List<Screening> screenings = screen.getScreenings();
             screenings.remove(screening.get());
-            screeningsInOrderByShowTime(screen);
             screen.setScreenings(screenings);
+            screeningsInOrderByShowTime(screen);
             screening.get().setScreen(null);
             screeningRepository.save(screening.get());
-            screenRepository.save(screen);
+//            screenRepository.save(screen);
         }
     }
 
@@ -69,6 +69,8 @@ public class ScreenService {
     public void screeningsInOrderByShowTime(Screen screen){
         List<Screening> screenings = screen.getScreenings();
         Collections.sort(screenings, new ShowTimeComparator());
+        screen.setScreenings(screenings);
+        screenRepository.save(screen);
     }
 
     }

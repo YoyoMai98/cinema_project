@@ -51,21 +51,21 @@ public class ScreeningService {
         return screening;
     }
 
-    public boolean canShow(long screeningId, long movieId, long cinemaId){
-        Movie movie = cinemaService.getMovieById(movieId, cinemaId);
-        Optional<Screening> screening = screeningRepository.findById(screeningId);
-        Screen screen = screening.get().getScreen();
+    public boolean canShow(Screening screening, Movie movie){
+        Screen screen = screening.getScreen();
+        screenService.screeningsInOrderByShowTime(screen);
         List<Screening> screenings = screen.getScreenings();
         Screening nextScreening = new Screening();
         for(int i = 0; i < screenings.size(); i++){
-            if(screenings.get(i) == screening.get() && i != screenings.size()-1){
+            if(screenings.get(i) == screening && i != screenings.size()-1){
                 nextScreening = screenings.get(i+1);
+                break;
             }else if(i == screenings.size()-1){
                 return true;
             }
         }
         double lengthToHour = Math.floor((double)movie.getLength()/60 * 100)/100;
-        double endTime = lengthToHour + screening.get().getShowTime();
+        double endTime = lengthToHour + screening.getShowTime();
         double decimalPart = Math.floor((endTime * 100) % 100);
         endTime = Math.floor((endTime * 100) / 100);
         if(decimalPart >= 60){
@@ -73,7 +73,7 @@ public class ScreeningService {
             decimalPart %= 60;
             endTime = endTime + addToEndTime + decimalPart/100;
         }
-        if(endTime > nextScreening.getShowTime()){
+        if(endTime >= nextScreening.getShowTime()){
             return false;
         }
         return true;
@@ -100,7 +100,7 @@ public class ScreeningService {
             return null;
         }
         if(screening.isPresent()){
-            if(movie != null && canShow(screeningId, movieId, cinemaId)){
+            if(movie != null && canShow(screening.get(), movie)){
                 screening.get().setMovie(movie);
                 movie.getScreenings().add(screening.get());
                 List<Screening> screenings = movie.getScreenings();
