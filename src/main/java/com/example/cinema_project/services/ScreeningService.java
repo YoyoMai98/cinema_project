@@ -1,6 +1,7 @@
 package com.example.cinema_project.services;
 
 import com.example.cinema_project.models.*;
+import com.example.cinema_project.repositories.CinemaRepository;
 import com.example.cinema_project.repositories.MovieRepository;
 import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class ScreeningService {
 
     @Autowired
     BookingService bookingService;
+
+    @Autowired
+    CinemaRepository cinemaRepository;
 
     public List<Screening> getAllScreenings(long screenId){
         return screeningRepository.findByScreenId(screenId);
@@ -159,5 +163,33 @@ public class ScreeningService {
         screening.setSeats(seats);
         screeningRepository.save(screening);
         return seats;
+    }
+
+    public double getRevenueOfOneScreening(Screening screening){
+        double singlePrice = screening.getPrice();
+        double totalCustomersNumbers = screening.getSeats().size();
+        return singlePrice * totalCustomersNumbers;
+    }
+
+    public double getRevenueOfOneScreen(Screen screen){
+        List<Screening> screenings = screen.getScreenings();
+        double totalRevenue = 0;
+        for(Screening screening : screenings){
+            totalRevenue += getRevenueOfOneScreening(screening);
+        }
+        return totalRevenue;
+    }
+
+    public double getTotalRevenue(long id){
+        Optional<Cinema> cinema = cinemaService.getCinemaById(id);
+        if(!cinema.isPresent()) return 0;
+        List<Screen> screens = cinema.get().getScreens();
+        double revenue = cinema.get().getRevenue();
+        for(Screen screen : screens){
+            revenue += getRevenueOfOneScreen(screen);
+        }
+        cinema.get().setRevenue(revenue);
+        cinemaRepository.save(cinema.get());
+        return revenue;
     }
 }

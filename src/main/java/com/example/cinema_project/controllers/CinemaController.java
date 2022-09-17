@@ -23,6 +23,9 @@ public class CinemaController {
     @Autowired
     CinemaService cinemaService;
 
+    @Autowired
+    ScreeningService screeningService;
+
     @GetMapping
     public ResponseEntity<List<Cinema>> getAllCinemas() {
         List<Cinema> cinemas = cinemaService.getAllCinemas();
@@ -69,6 +72,12 @@ public class CinemaController {
     public ResponseEntity<List<Screen>> getAllScreensFromCinema(@PathVariable long id){
         List<Screen> screens = cinemaService.getAllScreens(id);
         return new ResponseEntity<>(screens, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/revenue")
+    public ResponseEntity<Double> getRevenue(@PathVariable long id){
+        double revenue = screeningService.getTotalRevenue(id);
+        return new ResponseEntity<>(revenue, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}/movies/{movieId}")
