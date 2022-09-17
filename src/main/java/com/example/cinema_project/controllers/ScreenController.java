@@ -68,6 +68,14 @@ public class ScreenController {
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
+    @GetMapping("/{screenId}/{screenings}/{screeningId}/seats")
+    public ResponseEntity<List<Integer>> getOccupiedSeatsByScreeningId(
+            @PathVariable long screenId, @PathVariable long screeningId, @RequestParam long cinemaId
+    ){
+        List<Integer> seats = screeningService.getSeatList(screenId,screeningId,cinemaId);
+        return new ResponseEntity<>(seats, seats == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Screen> addNewScreen(@RequestBody Screen screen){
         Screen savedScreen = screenService.addNewScreen(screen);

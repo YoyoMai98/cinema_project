@@ -150,7 +150,9 @@ public class ScreeningService {
         }
     }
 
-    public List<Integer> getSeatList(Screening screening){
+    public List<Integer> getSeatList(long screenId, long screeningId, long cinemaId){
+        Screening screening = getScreeningById(screeningId,screenId,cinemaId);
+        if(screening == null) return null;
         return screening.getSeats();
     }
 
