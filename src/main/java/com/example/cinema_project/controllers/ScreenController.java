@@ -72,6 +72,14 @@ public class ScreenController {
         return new ResponseEntity<>(screen, HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/{screenId}/screenings")
+    public ResponseEntity<Screen> addNewScreeningToScreen(
+            @PathVariable long screenId, @RequestBody Screening screening, @RequestParam long cinemaId
+    ){
+        Screen screen = screenService.addNewScreeningToScreen(screening, screenId, cinemaId);
+        return new ResponseEntity<>(screen, HttpStatus.CREATED);
+    }
+
     @PostMapping(value = "/{screenId}/screenings/{screeningId}/customers/{customerId}")
     public ResponseEntity<Screening> addCustomerToScreening(
             @PathVariable long screeningId,
@@ -82,7 +90,7 @@ public class ScreenController {
     ) {
         Screening screening = screeningService.getScreeningById(screeningId, screenId, cinemaId);
         if(screening != null){
-            Screening updatedScreening = screeningService.addCustomerToScreening(customerId, screeningId, seat);
+            Screening updatedScreening = screeningService.addCustomerToScreening(customerId, screeningId, seat, cinemaId);
             return new ResponseEntity<>(updatedScreening, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

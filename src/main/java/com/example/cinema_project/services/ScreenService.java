@@ -31,7 +31,21 @@ public class ScreenService {
             screeningsInOrderByShowTime(screen);
             screening.get().setScreen(screen);
             screeningRepository.save(screening.get());
+            screenRepository.save(screen);
         }
+        return screen;
+    }
+
+    public Screen addNewScreeningToScreen(Screening screening, long screenId, long cinemaId){
+        Screen screen = screenRepository.findByCinemaIdAndId(cinemaId,screenId);
+        if(screen == null) return null;
+        List<Screening> screenings = screen.getScreenings();
+        screenings.add(screening);
+        screen.setScreenings(screenings);
+        screeningsInOrderByShowTime(screen);
+        screening.setScreen(screen);
+        screeningRepository.save(screening);
+        screenRepository.save(screen);
         return screen;
     }
 
@@ -46,6 +60,7 @@ public class ScreenService {
             screeningsInOrderByShowTime(screen);
             screening.get().setScreen(null);
             screeningRepository.save(screening.get());
+            screenRepository.save(screen);
         }
     }
 

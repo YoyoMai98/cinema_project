@@ -3,6 +3,7 @@ package com.example.cinema_project.services;
 import com.example.cinema_project.models.*;
 import com.example.cinema_project.repositories.CinemaRepository;
 import com.example.cinema_project.repositories.MovieRepository;
+import com.example.cinema_project.repositories.ScreenRepository;
 import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,11 +56,6 @@ public class ScreeningService {
         return null;
     }
 
-    public Screening addNewScreening(Screening screening){
-        screeningRepository.save(screening);
-        return screening;
-    }
-
     public boolean canShow(Screening screening, Movie movie){
         Screen screen = screening.getScreen();
         screenService.screeningsInOrderByShowTime(screen);
@@ -88,7 +84,9 @@ public class ScreeningService {
         return true;
     }
 
-    public Screening addCustomerToScreening(long customerId, Long screeningId, int seatNumber){
+    public Screening addCustomerToScreening(long customerId, Long screeningId, int seatNumber, long cinemaId){
+        Optional<Cinema> cinema = cinemaService.getCinemaById(cinemaId);
+        if(!cinema.isPresent()) return null;
         Screening screening = screeningRepository.findById(screeningId).get();
         Optional<Customer> customer = customerService.getCustomerById(customerId);
         if(customer.isPresent()){
@@ -99,6 +97,9 @@ public class ScreeningService {
                 return null;
             }
             bookingService.addNewBooking(customer.get(),screening,seatNumber);
+            double revenueForOneScreening = cinema.get().getRevenue() + screening.getPrice();
+            cinema.get().setRevenue(revenueForOneScreening);
+            cinemaRepository.save(cinema.get());
             addNewSeat(seatNumber,screening);
         }
         return screening;
@@ -168,28 +169,13 @@ public class ScreeningService {
         return seats;
     }
 
-    public double getRevenueOfOneScreening(Screening screening){
-        double singlePrice = screening.getPrice();
-        double totalCustomersNumbers = screening.getSeats().size();
-        return singlePrice * totalCustomersNumbers;
-    }
-
-    public double getRevenueOfOneScreen(Screen screen){
-        List<Screening> screenings = screen.getScreenings();
-        double totalRevenue = 0;
-        for(Screening screening : screenings){
-            totalRevenue += getRevenueOfOneScreening(screening);
-        }
-        return totalRevenue;
-    }
-
     public double getTotalRevenue(long id){
         Optional<Cinema> cinema = cinemaService.getCinemaById(id);
         if(!cinema.isPresent()) return 0;
         List<Screen> screens = cinema.get().getScreens();
         double revenue = cinema.get().getRevenue();
         for(Screen screen : screens){
-            revenue += getRevenueOfOneScreen(screen);
+            revenue += bookingService.getRevenueOfOneScreen(screen);
         }
         cinema.get().setRevenue(revenue);
         cinemaRepository.save(cinema.get());
