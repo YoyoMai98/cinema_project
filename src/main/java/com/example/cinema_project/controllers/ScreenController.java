@@ -1,8 +1,10 @@
 package com.example.cinema_project.controllers;
 
+import com.example.cinema_project.models.Booking;
 import com.example.cinema_project.models.Screen;
 import com.example.cinema_project.models.Screening;
 import com.example.cinema_project.repositories.CustomerRepository;
+import com.example.cinema_project.services.BookingService;
 import com.example.cinema_project.services.ScreenService;
 import com.example.cinema_project.services.ScreeningService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ScreenController {
 
     @Autowired
     ScreeningService screeningService;
+
+    @Autowired
+    BookingService bookingService;
 
     @GetMapping
     public ResponseEntity<List<Screen>> getAllScreens(){
@@ -55,6 +60,12 @@ public class ScreenController {
         }else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/screenings/{id}/bookings")
+    public ResponseEntity<List<Booking>> getAllBookingsByScreeningId(@PathVariable long id){
+        List<Booking> bookings = bookingService.getAllBookingsByScreeningId(id);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
     @PostMapping
