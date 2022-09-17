@@ -33,15 +33,6 @@ public class Screening {
     @JsonIgnoreProperties({"screenings","cinema"})
     private Screen screen;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "screenings_customers",
-//            joinColumns = {@JoinColumn(name = "screening_id", nullable = false)},
-//            inverseJoinColumns = {@JoinColumn(name = "customer_id", nullable = false)}
-//    )
-//    @JsonIgnoreProperties({"screenings"})
-//    private List<Customer> customers;
-
     @OneToMany(mappedBy = "screening")
     @JsonIgnoreProperties({"screening"})
     private List<Booking> bookings;
@@ -51,7 +42,6 @@ public class Screening {
         this.screen = screen;
         this.showTime = showTime;
         this.price = price;
-//        this.customers = new ArrayList<>();
         this.bookings = new ArrayList<>();
         this.seats = new ArrayList<>();
     }
@@ -81,14 +71,6 @@ public class Screening {
     public void setScreen(Screen screen) {
         this.screen = screen;
     }
-
-//    public List<Customer> getCustomers() {
-//        return customers;
-//    }
-
-//    public void setCustomers(List<Customer> customers) {
-//        this.customers = customers;
-//    }
 
     public double getShowTime() {
         return showTime;

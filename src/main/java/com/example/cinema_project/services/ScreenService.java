@@ -31,8 +31,6 @@ public class ScreenService {
             screeningsInOrderByShowTime(screen);
             screening.get().setScreen(screen);
             screeningRepository.save(screening.get());
-//            screenRepository.save(screen);
-
         }
         return screen;
     }
@@ -48,7 +46,6 @@ public class ScreenService {
             screeningsInOrderByShowTime(screen);
             screening.get().setScreen(null);
             screeningRepository.save(screening.get());
-//            screenRepository.save(screen);
         }
     }
 

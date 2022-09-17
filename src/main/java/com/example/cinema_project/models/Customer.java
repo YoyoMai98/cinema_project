@@ -16,22 +16,12 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "screenings_customers",
-//            joinColumns = {@JoinColumn(name = "customer_id", nullable = false)},
-//            inverseJoinColumns = {@JoinColumn(name = "screening_id", nullable = false)}
-//    )
-//    @JsonIgnoreProperties({"customers"})
-//    private List<Screening> screenings;
-
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties({"customers"})
     private List<Booking> bookings;
 
     public Customer(String name) {
         this.name = name;
-//        this.screenings = new ArrayList<>();
         this.bookings = new ArrayList<>();
     }
 
@@ -53,14 +43,6 @@ public class Customer {
     public void setId(long id) {
         this.id = id;
     }
-
-//    public List<Screening> getScreenings() {
-//        return screenings;
-//    }
-
-//    public void setScreenings(List<Screening> screenings) {
-//        this.screenings = screenings;
-//    }
 
     public List<Booking> getBookings() {
         return bookings;
