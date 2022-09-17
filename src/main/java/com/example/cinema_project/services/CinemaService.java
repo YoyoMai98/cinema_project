@@ -104,11 +104,11 @@ public class CinemaService {
     }
 
     public List<Movie> getMovieByGenre(String genre){
-        return movieRepository.findByGenre(genre);
+        return movieRepository.findByGenreContainingIgnoreCase(genre);
     }
 
     public List<Movie> getMovieByTitle(String title){
-        return movieRepository.findByTitle(title);
+        return movieRepository.findByTitleContainingIgnoreCase(title);
     }
 
     public List<Cinema> getAllCinemas(){

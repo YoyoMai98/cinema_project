@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -45,17 +46,18 @@ public class CinemaController {
     @GetMapping("/{id}/movies")
     public ResponseEntity<List<Movie>> getAllMovies(
             @PathVariable long id,
-            @RequestParam Optional<String> genre,
-            @RequestParam Optional<String> title) {
+            @RequestParam Map<String, String> requestParams) {
+        String genre = requestParams.get("genre");
+        String title = requestParams.get("title");
         List<Movie> movies;
-        if(genre.isPresent()){
-            movies = cinemaService.getMovieByGenre(genre.get());
-        }else if(title.isPresent()){
-            movies = cinemaService.getMovieByTitle(title.get());
+        if(genre != null){
+            movies = cinemaService.getMovieByGenre(genre);
+        }else if(title != null){
+            movies = cinemaService.getMovieByTitle(title);
         }else{
             movies = cinemaService.getAllMovies(id);
         }
-        return new ResponseEntity<>(movies, HttpStatus.OK);
+        return new ResponseEntity<>(movies, movies.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
     @GetMapping("/{id}/movies/{movieId}")

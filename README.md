@@ -47,7 +47,7 @@ How we worked together:
 
 1. This Spring Boot API runs on Java 17. Ensure you have an IDE, API platform and PostgreSQL client before running this API. We used IntelliJ, Postman & Postico, respectively. 
 2. Clone the repository `git clone git@github.com:YoyoMai98/cinema_project.git`. Open project in IDE.
-3. Create a database called “cinema” (`createdb cinema_app`); this will allow you to use your PostgreSQL client to view your tables.
+3. Create a database called “cinema_app” (`createdb cinema_app`); this will allow you to use your PostgreSQL client to view your tables.
 4. Run the application and open your API platform. Interact with the API and make HTTP queries via `localhost:8080/{query}` in the CLI.
 
 ## Project Structure
@@ -93,18 +93,18 @@ What Yongran has expanded on this API:
 
 - Change `Cinema` and `Movie` relationship to many-to-many
 - Add `showTime` and `endTime` properties in `Screening` model
-- Create `Booking` model to handle price for a ticket
+- Create `Booking` model to handle price for a ticket and seats
 - Add `revenue` property in cinema
 
-It allows users to manage revenue, manage multiple cinemas, cancel movies for one cinema, manage show time and end time for movies and book movies' tickets.
+It allows users to manage revenue, manage multiple cinemas, cancel movies for one cinema, manage show time and end time for movies and book movies' tickets with chosen seats.
 
 
 ## Using the API - HTTP Requests
 
 `localhost:8080/…`
 
-| HTTP Request Path                                                        | Request Type | Description                                      |
-|:-------------------------------------------------------------------------|:-------------|:-------------------------------------------------|
+| HTTP Request Path                                                  | Request Type | Description                                      |
+|:-----------------------------------------------------------|:-------------|:------------------------------------------------------|
 | `.../cinemas` |`GET` | Get All Cinemas |
 |`.../cinemas/{id}`| `GET` | Get Cinema By ID |
 |`.../cinemas/movies` |`GET` | Get All Movies  |
