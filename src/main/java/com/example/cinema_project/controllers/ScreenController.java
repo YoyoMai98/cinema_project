@@ -23,9 +23,6 @@ public class ScreenController {
     @Autowired
     ScreeningService screeningService;
 
-    @Autowired
-    CustomerRepository customerRepository;
-
     @GetMapping
     public ResponseEntity<List<Screen>> getAllScreens(){
         List<Screen> screens = screenService.getAllScreens();

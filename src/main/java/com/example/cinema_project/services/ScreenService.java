@@ -1,16 +1,14 @@
 package com.example.cinema_project.services;
 
 
-import com.example.cinema_project.models.Cinema;
-import com.example.cinema_project.models.Movie;
-import com.example.cinema_project.models.Screen;
-import com.example.cinema_project.models.Screening;
+import com.example.cinema_project.models.*;
 import com.example.cinema_project.repositories.MovieRepository;
 import com.example.cinema_project.repositories.ScreenRepository;
 import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +27,7 @@ public class ScreenService {
         if(screening.isPresent()) {
             List<Screening> screenings = screen.getScreenings();
             screenings.add(screening.get());
+            screeningsInOrderByShowTime(screen);
             screen.setScreenings(screenings);
             screening.get().setScreen(screen);
             screeningRepository.save(screening.get());
@@ -45,6 +44,7 @@ public class ScreenService {
         if(screening.isPresent()) {
             List<Screening> screenings = screen.getScreenings();
             screenings.remove(screening.get());
+            screeningsInOrderByShowTime(screen);
             screen.setScreenings(screenings);
             screening.get().setScreen(null);
             screeningRepository.save(screening.get());
@@ -64,6 +64,11 @@ public class ScreenService {
     public Screen addNewScreen(Screen screen) {
         screenRepository.save(screen);
         return screen;
+    }
+
+    public void screeningsInOrderByShowTime(Screen screen){
+        List<Screening> screenings = screen.getScreenings();
+        Collections.sort(screenings, new ShowTimeComparator());
     }
 
     }

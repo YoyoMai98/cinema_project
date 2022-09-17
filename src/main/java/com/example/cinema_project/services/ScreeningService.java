@@ -6,6 +6,7 @@ import com.example.cinema_project.repositories.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,34 @@ public class ScreeningService {
         return screening;
     }
 
+    public boolean canShow(long screeningId, long movieId, long cinemaId){
+        Movie movie = cinemaService.getMovieById(movieId, cinemaId);
+        Optional<Screening> screening = screeningRepository.findById(screeningId);
+        Screen screen = screening.get().getScreen();
+        List<Screening> screenings = screen.getScreenings();
+        Screening nextScreening = new Screening();
+        for(int i = 0; i < screenings.size(); i++){
+            if(screenings.get(i) == screening.get() && i != screenings.size()-1){
+                nextScreening = screenings.get(i+1);
+            }else if(i == screenings.size()-1){
+                return true;
+            }
+        }
+        double lengthToHour = Math.floor((double)movie.getLength()/60 * 100)/100;
+        double endTime = lengthToHour + screening.get().getShowTime();
+        double decimalPart = Math.floor((endTime * 100) % 100);
+        endTime = Math.floor((endTime * 100) / 100);
+        if(decimalPart >= 60){
+            double addToEndTime = Math.floor(decimalPart / 60);
+            decimalPart %= 60;
+            endTime = endTime + addToEndTime + decimalPart/100;
+        }
+        if(endTime > nextScreening.getShowTime()){
+            return false;
+        }
+        return true;
+    }
+
     public Screening addCustomerToScreening(long customerId, Long screeningId){
         Screening screening = screeningRepository.findById(screeningId).get();
         Optional<Customer> customer = customerService.getCustomerById(customerId);
@@ -71,7 +100,7 @@ public class ScreeningService {
             return null;
         }
         if(screening.isPresent()){
-            if(movie != null){
+            if(movie != null && canShow(screeningId, movieId, cinemaId)){
                 screening.get().setMovie(movie);
                 movie.getScreenings().add(screening.get());
                 List<Screening> screenings = movie.getScreenings();
