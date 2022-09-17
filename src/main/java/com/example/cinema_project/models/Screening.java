@@ -34,11 +34,16 @@ public class Screening {
     @JsonIgnoreProperties({"screenings"})
     private List<Customer> customers;
 
+    @OneToMany(mappedBy = "screening")
+    @JsonIgnoreProperties({"screening"})
+    private List<Booking> bookings;
+
     public Screening(Movie movie, Screen screen, double showTime) {
         this.movie = movie;
         this.screen = screen;
         this.showTime = showTime;
         this.customers = new ArrayList<>();
+        this.bookings = new ArrayList<>();
     }
 
     public Screening(){}
@@ -81,5 +86,13 @@ public class Screening {
 
     public void setShowTime(double showTime) {
         this.showTime = showTime;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

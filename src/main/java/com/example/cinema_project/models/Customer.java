@@ -25,9 +25,14 @@ public class Customer {
     @JsonIgnoreProperties({"customers"})
     private List<Screening> screenings;
 
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnoreProperties({"customers"})
+    private List<Booking> bookings;
+
     public Customer(String name) {
         this.name = name;
         this.screenings = new ArrayList<>();
+        this.bookings = new ArrayList<>();
     }
 
     public Customer() {
@@ -55,5 +60,13 @@ public class Customer {
 
     public void setScreenings(List<Screening> screenings) {
         this.screenings = screenings;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
