@@ -100,6 +100,9 @@ It allows users to manage revenue, manage multiple cinemas, cancel movies for on
 
 
 ## Using the API - HTTP Requests
+Notes:
+
+- Filters for String - this allowed us to use derived queries with "ContainingIgnoreCase" to reduce user input error and offer multiple options in e.g. movies by genres.
 
 `localhost:8080/…`
 
@@ -110,7 +113,7 @@ It allows users to manage revenue, manage multiple cinemas, cancel movies for on
 |`.../cinemas/movies` |`GET` | Get All Movies  |
 |`.../cinemas/movies/{id}`|`GET`| Get Movie By ID|
 |`.../cinemas/{id}/movies?genre={genre}`|`GET`| Get Movie By Genre |
-|`.../cinemas/{id}/movies/title={title}`|`GET`| Get Movie By Title|
+|`.../cinemas/{id}/movies?title={title}`|`GET`| Get Movie By Title|
 |`.../cinemas/{id}/revenue`|`GET`| Get Total Revenue|
 | `.../cinemas/{id}/movies/{movieId}`  | `DELETE`  | Cancel Movie  |
 | `.../cinemas/{id}/movies`  | `POST`  | Add Movie To Cinema  |
