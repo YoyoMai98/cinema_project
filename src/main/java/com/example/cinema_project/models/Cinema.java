@@ -14,6 +14,10 @@ public class Cinema {
         
         @Column
         private String branch;
+
+        @Column
+        private double revenue;
+
         @ManyToMany
         @JoinTable(
             name = "cinemas_movies",
@@ -28,6 +32,7 @@ public class Cinema {
 
     public Cinema(String branch) {
         this.branch = branch;
+        this.revenue = 0;
         this.movies = new ArrayList<>();
         this.screens = new ArrayList<>();
     }
@@ -65,5 +70,13 @@ public class Cinema {
 
     public void setScreens(List<Screen> screens) {
         this.screens = screens;
+    }
+
+    public double getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(double revenue) {
+        this.revenue = revenue;
     }
 }
