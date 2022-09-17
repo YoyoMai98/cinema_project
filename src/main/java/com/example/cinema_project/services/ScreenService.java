@@ -52,8 +52,8 @@ public class ScreenService {
         }
     }
 
-    public List<Screen> getAllScreens(long cinemaId){
-        return screenRepository.findByCinemaId(cinemaId);
+    public List<Screen> getAllScreens(){
+        return screenRepository.findAll();
     }
 
 
@@ -61,7 +61,7 @@ public class ScreenService {
         return screenRepository.findByCinemaIdAndId(cinemaId, id);
     }
 
-    public Screen addNewScreen(Screen screen){
+    public Screen addNewScreen(Screen screen) {
         screenRepository.save(screen);
         return screen;
     }

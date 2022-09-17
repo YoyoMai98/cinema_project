@@ -63,6 +63,10 @@ public class CinemaService {
         return null;
     }
 
+    public List<Screen> getAllScreens(long cinemaId){
+        return screenRepository.findByCinemaId(cinemaId);
+    }
+
     public List<Movie> getMovieByGenre(String genre){
         return movieRepository.findByGenre(genre);
     }

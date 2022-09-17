@@ -65,6 +65,12 @@ public class CinemaController {
         }
     }
 
+    @GetMapping("/{id}/screens")
+    public ResponseEntity<List<Screen>> getAllScreensFromCinema(@PathVariable long id){
+        List<Screen> screens = cinemaService.getAllScreens(id);
+        return new ResponseEntity<>(screens, HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/{id}/movies/{movieId}")
     public ResponseEntity<Long> cancelMovie(@PathVariable long id, @PathVariable long movieId) {
         cinemaService.cancelMovie(movieId, id);
