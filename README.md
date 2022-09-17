@@ -33,7 +33,7 @@ We are the Debug Demons team behind Cinema - 4 members of Cohort 6 from the Brig
 ## Project Overview
 Given the broad scope to our cinema-management-API:
 - We have designed a cinema API which uses POJOs and allows you to select information from our different models and get this brought up in Postman and Postico.
-- A handy API allows cinemas to manage revenue, add new movies, search for movies, add new show time and screens for movies and manage customers. It also allows customers to book movies' tickets.
+- A handy API allows cinemas to manage revenue, add new movies, cancel movies, search for movies, add new show time and screens for movies and manage customers. It also allows customers to book movies' tickets.
 - We have used Java as our primary Backend language, but have also used SQL for the data.
 
 How we worked together:
@@ -113,9 +113,10 @@ How we worked together:
 
 What Yongran has expanded on this API:
 
-- Change `Cinema` and `Movie` one-to-many relationship to many-to-many
-- Add `showTime` property in `Screening` model
+- Change `Cinema` and `Movie` relationship to many-to-many
+- Add `showTime` and `endTime` properties in `Screening` model
 - Create `Booking` model to handle price for a ticket
+- Add `revenue` property in cinema
 
 Here are a few ideas on how we would like to expand on this API:
 - Create `Genre` table to list movies’ genres in one cinema
