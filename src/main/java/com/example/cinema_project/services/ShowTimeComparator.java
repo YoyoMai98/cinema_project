@@ -1,4 +1,6 @@
-package com.example.cinema_project.models;
+package com.example.cinema_project.services;
+
+import com.example.cinema_project.models.Screening;
 
 import java.util.Comparator;
 
