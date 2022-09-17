@@ -89,6 +89,7 @@ How we worked together:
 |`.../cinemas/{id}/revenue`|`GET`| Get Total Revenue|
 | `.../cinemas/{id}/movies/{movieId}`  | `DELETE`  | Cancel Movie  |
 | `.../cinemas/{id}/movies`  | `POST`  | Add Movie To Cinema  |
+| `.../cinemas/{id}/movies/{movieId}`  | `POST`  | Add Existed Movie To Cinema  |
 | `.../cinemas/{id}/screens`  | `POST`  | Add Screen To Cinema |
 | `.../cinemas`  | `POST`  | Create Cinema  |
 | `.../customers` | `GET` | Get All Customers |
@@ -98,8 +99,10 @@ How we worked together:
 | `.../screens/{id}?cinemaId={cinemaId}` | `GET` | Get Screen By ID |
 | `.../screens/{screenId}/screenings` | `GET` | Get All Screenings |
 | `.../screens/{id}/screenings?cinemaId={cinemaId}` | `GET` | Get Screening By ID |
+| `.../screens/screenings/{id}/bookings`  | `GET`  | Get All Bookings By Screening ID |
 | `.../screens` | `POST` | Create New Screen |
-| `.../screens/{screenId}?screeningId={screeningId}?cinemaId={cinemaId}` | `POST` | Create/Add New Screening To Screen |
+| `.../screens/{screenId}?screeningId={screeningId}?cinemaId={cinemaId}` | `POST` | Create/Add Existed Screening To Screen |
+| `.../screens/{screenId}/screenings?cinemaId={cinemaId}` | `POST` | Create New Screening To Screen |
 | `.../screens/{screenId}/screenings/{screeningId}/customers/{customerId}?cinemaId={cinemaId}&seat={seat}` | `POST` | Add New Customer To Screening |
 | `.../screens/{screenId}/screenings/{screeningId}/movies/{movieId}?cinemaId={cinemaId}` | `POST` | Add New Movie To Screening |
 | `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}` | `DELETE` | Delete Screening By ID |
