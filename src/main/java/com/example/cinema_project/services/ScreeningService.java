@@ -87,11 +87,12 @@ public class ScreeningService {
         Screening screening = screeningRepository.findById(screeningId).get();
         Optional<Customer> customer = customerService.getCustomerById(customerId);
         if(customer.isPresent()){
-//            List<Customer> customers = screening.getCustomers();
-//            customers.add(customer.get());
-//            screening.setCustomers(customers);
-//            screeningRepository.save(screening);
-            if(!isSeatOccupied(seatNumber, screening.getSeats())) return null;
+            if( (!isSeatOccupied(seatNumber, screening.getSeats())) ||
+                (screening.getSeats().size() > screening.getScreen().getCapacity())||
+                (seatNumber > screening.getScreen().getCapacity())
+            ){
+                return null;
+            }
             bookingService.addNewBooking(customer.get(),screening,seatNumber);
             addNewSeat(seatNumber,screening);
         }
