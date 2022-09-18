@@ -25,7 +25,7 @@ public class Screening {
 
     @Column
     @ElementCollection
-    private List<Integer> seats;
+    private List<String> seats;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -116,11 +116,11 @@ public class Screening {
         this.price = price;
     }
 
-    public List<Integer> getSeats() {
+    public List<String> getSeats() {
         return seats;
     }
 
-    public void setSeats(List<Integer> seats) {
+    public void setSeats(List<String> seats) {
         this.seats = seats;
     }
 

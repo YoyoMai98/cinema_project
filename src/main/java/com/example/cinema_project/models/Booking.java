@@ -12,7 +12,7 @@ public class Booking {
     private long id;
 
     @Column
-    private int seatNumber;
+    private String seatNumber;
 
     @Column
     private double price;
@@ -27,7 +27,7 @@ public class Booking {
     @JsonIgnoreProperties({"bookings","seats"})
     private Screening screening;
 
-    public Booking(int seatNumber, Customer customer, Screening screening) {
+    public Booking(String seatNumber, Customer customer, Screening screening) {
         this.seatNumber = seatNumber;
         this.price = screening.getPrice();
         this.customer = customer;
@@ -45,11 +45,11 @@ public class Booking {
         this.id = id;
     }
 
-    public int getSeatNumber() {
+    public String getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
 

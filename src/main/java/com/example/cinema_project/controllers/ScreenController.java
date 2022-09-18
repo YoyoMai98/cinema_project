@@ -69,10 +69,10 @@ public class ScreenController {
     }
 
     @GetMapping("/{screenId}/{screenings}/{screeningId}/seats")
-    public ResponseEntity<List<Integer>> getOccupiedSeatsByScreeningId(
+    public ResponseEntity<List<String>> getOccupiedSeatsByScreeningId(
             @PathVariable long screenId, @PathVariable long screeningId, @RequestParam long cinemaId
     ){
-        List<Integer> seats = screeningService.getSeatList(screenId,screeningId,cinemaId);
+        List<String> seats = screeningService.getSeatList(screenId,screeningId,cinemaId);
         return new ResponseEntity<>(seats, seats == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
@@ -105,7 +105,7 @@ public class ScreenController {
             @PathVariable long screenId,
             @PathVariable long customerId,
             @RequestParam long cinemaId,
-            @RequestParam Integer seat
+            @RequestParam String seat
     ) {
         Screening screening = screeningService.getScreeningById(screeningId, screenId, cinemaId);
         if(screening != null){

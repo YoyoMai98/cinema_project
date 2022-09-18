@@ -17,7 +17,9 @@ public class Screen {
 
     @Column(name = "capacity")
     private int capacity;
-    
+
+    @Column
+    private int seatsInOneLine;
     
     @ManyToOne
     @JoinColumn(name = "cinema_id")
@@ -29,10 +31,11 @@ public class Screen {
     @JsonIgnoreProperties({"screen","movie","bookings"})
     List<Screening> screenings;
 
-    public Screen(int capacity, Cinema cinema) {
+    public Screen(int capacity, Cinema cinema, int seatsInOneLine) {
         this.capacity = capacity;
         this.screenings = new ArrayList<>();
         this.cinema = cinema;
+        this.seatsInOneLine = seatsInOneLine;
     }
 
     public Screen(){
@@ -69,5 +72,13 @@ public class Screen {
 
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
+    }
+
+    public int getSeatsInOneLine() {
+        return seatsInOneLine;
+    }
+
+    public void setSeatsInOneLine(int seatsInOneLine) {
+        this.seatsInOneLine = seatsInOneLine;
     }
 }

@@ -102,9 +102,9 @@ public class DataLoader implements ApplicationRunner{
             movieRepository.save(movie11);
             movieRepository.save(movie12);
 
-            Screen screen1 = new Screen(4, cinema);
-            Screen screen2 = new Screen(5, cinema);
-            Screen screen3 = new Screen(6, cinema);
+            Screen screen1 = new Screen(4, cinema,2);
+            Screen screen2 = new Screen(5, cinema,2);
+            Screen screen3 = new Screen(6, cinema,3);
 
             screenRepository.save(screen1);
             screenRepository.save(screen2);

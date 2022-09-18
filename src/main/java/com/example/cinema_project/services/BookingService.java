@@ -40,7 +40,7 @@ public class BookingService {
         return totalRevenue;
     }
 
-    public Booking addNewBooking(Customer customer, Screening screening, int seatNumber){
+    public Booking addNewBooking(Customer customer, Screening screening, String seatNumber){
         Booking booking = new Booking(seatNumber, customer, screening);
         List<Booking> bookings = screening.getBookings();
         bookings.add(booking);

@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ScreeningService {
@@ -84,15 +81,16 @@ public class ScreeningService {
         return true;
     }
 
-    public Screening addCustomerToScreening(long customerId, Long screeningId, int seatNumber, long cinemaId){
+    public Screening addCustomerToScreening(long customerId, Long screeningId, String seatNumber, long cinemaId){
         Optional<Cinema> cinema = cinemaService.getCinemaById(cinemaId);
+        seatNumber = seatNumber.toUpperCase();
         if(!cinema.isPresent()) return null;
         Screening screening = screeningRepository.findById(screeningId).get();
         Optional<Customer> customer = customerService.getCustomerById(customerId);
         if(customer.isPresent()){
             if( (!isSeatOccupied(seatNumber, screening.getSeats())) ||
                 (screening.getSeats().size() > screening.getScreen().getCapacity())||
-                (seatNumber > screening.getScreen().getCapacity())
+                (getSeatNumber(seatNumber, screening.getScreen().getSeatsInOneLine()) > screening.getScreen().getCapacity())
             ){
                 return null;
             }
@@ -150,25 +148,40 @@ public class ScreeningService {
         }
     }
 
-    public List<Integer> getSeatList(long screenId, long screeningId, long cinemaId){
+    public List<String> getSeatList(long screenId, long screeningId, long cinemaId){
         Screening screening = getScreeningById(screeningId,screenId,cinemaId);
         if(screening == null) return null;
         return screening.getSeats();
     }
 
-    public boolean isSeatOccupied(int seatNumber, List<Integer> seats){
-        for(int seat : seats){
-            if(seatNumber == seat) return false;
+    public boolean isSeatOccupied(String seatNumber, List<String> seats){
+        for(String seat : seats){
+            if(seatNumber.equals(seat)) return false;
         }
         return true;
     }
 
-    public List<Integer> addNewSeat(int seatNumber, Screening screening){
-        List<Integer> seats = screening.getSeats();
+    public List<String> addNewSeat(String seatNumber, Screening screening){
+        List<String> seats = screening.getSeats();
         seats.add(seatNumber);
         screening.setSeats(seats);
         screeningRepository.save(screening);
         return seats;
+    }
+
+    public int getSeatNumber(String seatNumber, int seatsInOneLine){
+        seatNumber = seatNumber.toUpperCase();
+        int i = 0;
+        char[] seatNum = seatNumber.toCharArray();
+        while(Character.isDigit(seatNum[i])) i++;
+        int row = seatNum[i] - 'A';
+        int col = 0;
+        int intPart = 0;
+        for(int j = 0; j < i; j++){
+            col = seatNum[j] - '0' + intPart;
+            intPart = col * 10;
+        }
+        return row * seatsInOneLine + col;
     }
 
     public double getTotalRevenue(long id){
