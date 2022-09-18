@@ -95,15 +95,15 @@ What Yongran has expanded on this API:
 - Add `showTime` and `endTime` properties in `Screening` model
 - Create `Booking` model to handle price for a ticket and seats
 - Add `revenue` property in cinema
-- Authenticate a ticket
+- Ticket Authentication
 
-It allows users to manage revenue, manage multiple cinemas, cancel movies for one cinema, manage show time and end time for movies and book movies' tickets with chosen seats.
+It allows users to manage revenue, manage multiple cinemas, cancel movies for one cinema, manage show time and end time for movies, book movies' tickets with chosen seats and validate a ticket.
 
 
 ## Using the API - HTTP Requests
 Notes:
 
-- Filters for String - this allowed us to use derived queries with "ContainingIgnoreCase" to reduce user input error and offer multiple options in e.g. movies by genres.
+- Filters for String - this allowed us to use derived queries with "ContainingIgnoreCase" to reduce user input error and offer multiple options in e.g. movies genres.
 
 `localhost:8080/…`
 
@@ -111,6 +111,7 @@ Notes:
 |:-----------------------------------------------------------|:-------------|:------------------------------------------------------|
 | `.../cinemas` |`GET` | Get All Cinemas |
 |`.../cinemas/{id}`| `GET` | Get Cinema By ID |
+|`.../cinemas/branch/{branch}`| `GET` | Get Cinema By Branch |
 |`.../cinemas/movies` |`GET` | Get All Movies  |
 |`.../cinemas/movies/{id}`|`GET`| Get Movie By ID|
 |`.../cinemas/{id}/movies?genre={genre}`|`GET`| Get Movie By Genre |

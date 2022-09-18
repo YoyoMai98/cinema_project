@@ -43,6 +43,16 @@ public class CinemaController {
         }
     }
 
+    @GetMapping("/branch/{branch}")
+    public ResponseEntity<Cinema> getCinemaByBranch(@PathVariable String branch){
+        Cinema cinema = cinemaService.getCinemaByBranch(branch);
+        if(cinema != null){
+            return new ResponseEntity<>(cinema, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/{id}/movies")
     public ResponseEntity<List<Movie>> getAllMovies(
             @PathVariable long id,
@@ -124,7 +134,7 @@ public class CinemaController {
     @PostMapping
     public ResponseEntity<Cinema> createCinema(@RequestBody Cinema cinema) {
         Cinema savedCinema = cinemaService.addNewCinema(cinema);
-        return new ResponseEntity<>(savedCinema, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedCinema, savedCinema == null ? HttpStatus.ALREADY_REPORTED : HttpStatus.CREATED);
     }
 
 }

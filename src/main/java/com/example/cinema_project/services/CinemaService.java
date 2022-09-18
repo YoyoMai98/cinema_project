@@ -116,7 +116,15 @@ public class CinemaService {
         return cinemaRepository.findById(id);
     }
 
+    public Cinema getCinemaByBranch(String branch){
+        return cinemaRepository.findByBranchContainingIgnoreCase(branch);
+    }
+
     public Cinema addNewCinema(Cinema cinema){
+        List<Cinema> cinemas = cinemaRepository.findAll();
+        for(Cinema cinema1: cinemas){
+            if (cinema1.getBranch().equals(cinema.getBranch())) return null;
+        }
         cinemaRepository.save(cinema);
         return cinema;
     }
