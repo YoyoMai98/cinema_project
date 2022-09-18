@@ -70,6 +70,21 @@ public class CinemaController {
         }
     }
 
+    @GetMapping("/{cinemaId}/authentication/{movieId}")
+    public ResponseEntity<String> checkTickets(
+            @PathVariable long cinemaId,
+            @PathVariable long movieId,
+            @RequestParam long customerId,
+            @RequestParam long screeningId,
+            @RequestParam String seat
+    ){
+        if(cinemaService.checkTicket(screeningId,customerId,seat,cinemaId,movieId)){
+            return new ResponseEntity<>("The ticket is authorised!", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Fake ticket!", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/{id}/screens")
     public ResponseEntity<List<Screen>> getAllScreensFromCinema(@PathVariable long id){
         List<Screen> screens = cinemaService.getAllScreens(id);

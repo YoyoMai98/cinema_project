@@ -95,6 +95,7 @@ What Yongran has expanded on this API:
 - Add `showTime` and `endTime` properties in `Screening` model
 - Create `Booking` model to handle price for a ticket and seats
 - Add `revenue` property in cinema
+- Authenticate a ticket
 
 It allows users to manage revenue, manage multiple cinemas, cancel movies for one cinema, manage show time and end time for movies and book movies' tickets with chosen seats.
 
@@ -114,7 +115,8 @@ Notes:
 |`.../cinemas/movies/{id}`|`GET`| Get Movie By ID|
 |`.../cinemas/{id}/movies?genre={genre}`|`GET`| Get Movie By Genre |
 |`.../cinemas/{id}/movies?title={title}`|`GET`| Get Movie By Title|
-|`.../cinemas/{id}/revenue`|`GET`| Get Total Revenue|
+|`.../cinemas/{id}/revenue`|`GET`| Get Total Revenue |
+|`.../cinemas/{cinemaId}/authentication/{movieId}?customerId={customerId}&screeningId={screeningId}&seat={seat}`|`GET`| Authenticate Ticket |
 | `.../cinemas/{id}/movies/{movieId}`  | `DELETE`  | Cancel Movie  |
 | `.../cinemas/{id}/movies`  | `POST`  | Add Movie To Cinema  |
 | `.../cinemas/{id}/movies/{movieId}`  | `POST`  | Add Existed Movie To Cinema  |
@@ -142,7 +144,6 @@ Notes:
 
 Here are a few ideas on how we would like to expand on this API:
 - Create `Genre` table to list movies’ genres in one cinema
-- Authentication
 
 
 ## Acknowledgements

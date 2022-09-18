@@ -1,13 +1,7 @@
 package com.example.cinema_project.services;
 
-import com.example.cinema_project.models.Cinema;
-import com.example.cinema_project.models.Movie;
-import com.example.cinema_project.models.Screen;
-import com.example.cinema_project.models.Screening;
-import com.example.cinema_project.repositories.CinemaRepository;
-import com.example.cinema_project.repositories.MovieRepository;
-import com.example.cinema_project.repositories.ScreenRepository;
-import com.example.cinema_project.repositories.ScreeningRepository;
+import com.example.cinema_project.models.*;
+import com.example.cinema_project.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +22,9 @@ public class CinemaService {
 
     @Autowired
     ScreeningRepository screeningRepository;
+
+    @Autowired
+    BookingRepository bookingRepository;
 
     public List<Movie> getAllMovies(long cinemaId){
         Cinema cinema= cinemaRepository.findById(cinemaId).get();
@@ -122,5 +119,15 @@ public class CinemaService {
     public Cinema addNewCinema(Cinema cinema){
         cinemaRepository.save(cinema);
         return cinema;
+    }
+
+    public boolean checkTicket(long screeningId, long customerId, String seatNumber, long cinemaId, long movieId){
+        Optional<Screening> screening = screeningRepository.findById(screeningId);
+        if(!screening.isPresent()) return false;
+        Booking booking = bookingRepository.findByCustomerIdAndScreeningIdAndSeatNumber(customerId,screeningId,seatNumber.toUpperCase());
+        Movie movie = movieRepository.findByCinemasIdAndId(cinemaId, movieId);
+        Movie providedMovie = screening.get().getMovie();
+        if(movie != null && movie.equals(providedMovie) && booking != null) return true;
+        else return false;
     }
 }
