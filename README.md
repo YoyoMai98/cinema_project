@@ -91,9 +91,10 @@ It includes 5x models classes:
 
 What Yongran has expanded on this API:
 
+- Handle multiple cinemas with different branches
 - Change `Cinema` and `Movie` relationship to many-to-many
 - Add `showTime` and `endTime` properties in `Screening` model
-- Create `Booking` model to handle price for a ticket and seats
+- Create `Booking` model to handle seats and price for a ticket
 - Add `revenue` property in cinema
 - Ticket Authentication
 
@@ -112,10 +113,11 @@ Notes:
 | `.../cinemas` |`GET` | Get All Cinemas |
 |`.../cinemas/{id}`| `GET` | Get Cinema By ID |
 |`.../cinemas/branch/{branch}`| `GET` | Get Cinema By Branch |
-|`.../cinemas/movies` |`GET` | Get All Movies  |
-|`.../cinemas/movies/{id}`|`GET`| Get Movie By ID|
+|`.../cinemas/{id}/movies` |`GET` | Get All Movies  |
+|`.../cinemas/{id}/movies/{movieId}`|`GET`| Get Movie By ID|
 |`.../cinemas/{id}/movies?genre={genre}`|`GET`| Get Movie By Genre |
 |`.../cinemas/{id}/movies?title={title}`|`GET`| Get Movie By Title|
+|`.../cinemas/{id}/screens`|`GET`| Get All Screens by Cinema ID |
 |`.../cinemas/{id}/revenue`|`GET`| Get Total Revenue |
 |`.../cinemas/{cinemaId}/authentication/{movieId}?customerId={customerId}&screeningId={screeningId}&seat={seat}`|`GET`| Authenticate Ticket |
 | `.../cinemas/{id}/movies/{movieId}`  | `DELETE`  | Cancel Movie  |
@@ -129,16 +131,16 @@ Notes:
 | `.../screens` | `GET` | Get All Screens 
 | `.../screens/{id}?cinemaId={cinemaId}` | `GET` | Get Screen By ID |
 | `.../screens/{screenId}/screenings` | `GET` | Get All Screenings |
-| `.../screens/{id}/screenings?cinemaId={cinemaId}` | `GET` | Get Screening By ID |
+| `.../screens/{screenId}/screenings/{id}?cinemaId={cinemaId}` | `GET` | Get Screening By ID |
 | `.../screens/screenings/{id}/bookings`  | `GET`  | Get All Bookings By Screening ID |
 | `.../screens/{screenId}/screenings/{screenId}/seats?cinemaId={cinemaId}`  | `GET`  | Get All Occupied Seats By Screening ID |
 | `.../screens` | `POST` | Create New Screen |
-| `.../screens/{screenId}?screeningId={screeningId}?cinemaId={cinemaId}` | `POST` | Create/Add Existed Screening To Screen |
+| `.../screens/{screenId}?screeningId={screeningId}&cinemaId={cinemaId}` | `POST` | Create/Add Existed Screening To Screen |
 | `.../screens/{screenId}/screenings?cinemaId={cinemaId}` | `POST` | Create New Screening To Screen |
-| `.../screens/{screenId}/screenings/{screeningId}/customers/{customerId}?cinemaId={cinemaId}&seat={seat}` | `POST` | Add New Customer To Screening |
-| `.../screens/{screenId}/screenings/{screeningId}/movies/{movieId}?cinemaId={cinemaId}` | `POST` | Add New Movie To Screening |
+| `.../screens/{screenId}/screenings/{screeningId}/customers/{customerId}?cinemaId={cinemaId}&seat={seat}` | `POST` | Add Customer To Screening |
+| `.../screens/{screenId}/screenings/{screeningId}/movies/{movieId}?cinemaId={cinemaId}` | `POST` | Add Movie To Screening |
 | `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}` | `DELETE` | Delete Screening By ID |
-| `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}?movieId={movieId}` | `DELETE` | Delete Movie By ID |
+| `.../screens/{screenId}?cinemaId={cinemaId}&screeningId={screeningId}&movieId={movieId}` | `DELETE` | Delete Movie By ID |
 
 
 ## Further Extensions
