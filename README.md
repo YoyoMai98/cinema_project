@@ -35,10 +35,10 @@ We are the Debug Demons team behind Cinema - 4 members of Cohort 6 from the Brig
 ## Project Overview
 Given the broad scope to our cinema-management-API:
 - We have designed a cinema API which uses POJOs and allows you to select information from our different models and get this brought up in Postman and Postico.
-- A handy API allows cinemas to manage revenue, screens, movies and show time. It also allows customers to book movies' tickets.
+- A handy API allows cinemas to validate tickets, manage revenue, screens, movies and show time. It also allows customers to book movies' tickets and choose seats.
 - We have used Java as our primary Backend language, but have also used SQL for the data.
 
-How we worked together:
+How we worked together to build an MVP:
 - As part of the Bright Network Technology Academy, we were assigned a group project to research, plan and develop an API within a week.
 - Our main challenges included removing dependency loops between screening, screen, movie and cinema models, fixing foreign key constraints, and version control errors. 
 - To mitigate our issues we regularly discussed them with one another, and would ask for help when we needed it. Our teamwork was key for getting us to complete this project together.
